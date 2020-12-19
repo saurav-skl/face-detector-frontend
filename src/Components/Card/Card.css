@@ -1,0 +1,16 @@
+.card{
+    height:4rem;
+    width:4rem;
+    background-color: rgb(0, 0, 0);
+    margin-left: 1.0rem;
+    margin-top:1.0rem;
+    clear: both;
+    float:left;
+    padding:2px;
+    margin-bottom: 10px;
+}
+
+.container{
+    display:flex;
+    clear: both;
+}
