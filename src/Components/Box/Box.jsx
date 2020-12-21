@@ -4,7 +4,7 @@ import "./Box.css";
 const Box = ({ onInputChange, onButtonSubmit }) => {
   return (
     <div className="container ">
-      <p className="f3 tc white">{"Hello Saurav, All work done here..."}</p>
+      <p className="f3 tc white">{"Try these, new face detector game just put image link"}</p>
       <div className=" pattern tc">
         <div className=" pa4 w-100">
           <input

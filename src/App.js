@@ -96,7 +96,7 @@ class App extends Component {
         // .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
         // to:
         // .predict('c0c0ac362b03416da06ab3fa36fb58e3', this.state.input)
-        'c0c0ac362b03416da06ab3fa36fb58e3',
+        Clarifai.FACE_DETECT_MODEL,
         this.state.input
       )
       .then((response) => {
