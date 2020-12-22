@@ -29,23 +29,25 @@ const particlesOptions = {
   },
 };
 
+const initialState = {
+  input: "",
+  imageUrl: "",
+  box: {},
+  route: "signin",
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: "",
+    joined: "",
+  },
+};
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: "",
-      imageUrl: "",
-      box: {},
-      route: "signin",
-      isSignedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        entries: "",
-        joined: "",
-      },
-    };
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -96,7 +98,7 @@ class App extends Component {
         // .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
         // to:
         // .predict('c0c0ac362b03416da06ab3fa36fb58e3', this.state.input)
-        Clarifai.FACE_DETECT_MODEL,
+        "c0c0ac362b03416da06ab3fa36fb58e3",
         this.state.input
       )
       .then((response) => {
@@ -111,16 +113,18 @@ class App extends Component {
             .then((response) => response.json())
             .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
-            });
+            })
+            .catch(err => console.log(err));
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
-      .catch((err) => console.log(err + " sorry saurav"));
+      .catch((err) => alert(err + "\nSorry " + this.state.user.name));
   };
 
   onRouteChange = (route) => {
     if (route === "signout") {
       this.setState({ isSignedIn: false });
+      console.log(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
@@ -152,7 +156,7 @@ class App extends Component {
             />
           </div>
         ) : this.state.route === "signin" ? (
-          <Signin loadUser = {this.loadUser} onRouteChange={this.onRouteChange} />
+          <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         ) : (
           <Register
             loadUser={this.loadUser}
