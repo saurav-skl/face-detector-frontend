@@ -82,7 +82,7 @@ class App extends Component {
   onButtonSubmit = () => {
     // console.log("apple");
     this.setState({ imageUrl: this.state.input });
-    fetch("http://localhost:3001/imageUrl", {
+    fetch("https://agile-dusk-05419.herokuapp.com/imageUrl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -93,7 +93,7 @@ class App extends Component {
       .catch(err => console.log)
       .then((response) => {
         if (response) {
-          fetch("http://localhost:3001/image", {
+          fetch("https://agile-dusk-05419.herokuapp.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

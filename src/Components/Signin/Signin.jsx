@@ -18,23 +18,23 @@ class Signin extends React.Component {
   };
 
   onSubmitChange = () => {
-    console.log(this.state);
-    fetch('http://localhost:3001/signin',{
-      method:'post',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        email:this.state.signInEmail,
-        password:this.state.signInPassword,
-      })
+    // console.log(this.state);
+    fetch("https://agile-dusk-05419.herokuapp.com/signin", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword,
+      }),
     })
-    .then(response => response.json())
-    .then(user =>{
-      if(user.id){
-        this.props.loadUser(user);
-        this.props.onRouteChange("home");
-      }
-    })
-  }
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id) {
+          this.props.loadUser(user);
+          this.props.onRouteChange("home");
+        }
+      });
+  };
 
   render() {
     const { onRouteChange } = this.props;
@@ -53,19 +53,19 @@ class Signin extends React.Component {
                   type="email"
                   name="email-address"
                   id="email-address"
-                  onChange = {this.onEmailChange}
+                  onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" htmlFor="password">
                   Password
                 </label>
-                <input 
-                className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-                type="password"
-                name="password"
-                id="password"
-                onChange = {this.onPasswordChange}
+                <input
+                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={this.onPasswordChange}
                 />
               </div>
             </div>
