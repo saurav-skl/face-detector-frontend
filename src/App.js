@@ -90,7 +90,7 @@ class App extends Component {
       }),
     })
       .then((response) => response.json())
-      .catch(err => console.log)
+      .catch((err) => console.log)
       .then((response) => {
         if (response) {
           fetch("https://agile-dusk-05419.herokuapp.com/image", {
