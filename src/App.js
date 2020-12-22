@@ -6,13 +6,8 @@ import Card from "./Components/Card/Card.jsx";
 import Box from "./Components/Box/Box";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition.jsx";
 import Signin from "./Components/Signin/Signin.jsx";
-import Clarifai from "clarifai";
 import Register from "./Components/Register/Register.jsx";
 import Rank from "./Components/Rank/Rank.jsx";
-
-const app = new Clarifai.App({
-  apiKey: "a556aa67827941a7a19ea02c39ab88f6",
-});
 
 const particlesOptions = {
   particles: {
@@ -85,22 +80,17 @@ class App extends Component {
   };
 
   onButtonSubmit = () => {
-    console.log("apple");
+    // console.log("apple");
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict(
-        // HEADS UP! Sometimes the Clarifai Models can be down or not working as they are constantly getting updated.
-        // A good way to check if the model you are using is up, is to check them on the clarifai website. For example,
-        // for the Face Detect Mode: https://www.clarifai.com/models/face-detection
-        // If that isn't working, then that means you will have to wait until their servers are back up. Another solution
-        // is to use a different version of their model that works like: `c0c0ac362b03416da06ab3fa36fb58e3`
-        // so you would change from:
-        // .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-        // to:
-        // .predict('c0c0ac362b03416da06ab3fa36fb58e3', this.state.input)
-        "c0c0ac362b03416da06ab3fa36fb58e3",
-        this.state.input
-      )
+    fetch("http://localhost:3001/imageUrl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input,
+      }),
+    })
+      .then((response) => response.json())
+      .catch(err => console.log)
       .then((response) => {
         if (response) {
           fetch("http://localhost:3001/image", {
@@ -114,7 +104,7 @@ class App extends Component {
             .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
@@ -124,7 +114,7 @@ class App extends Component {
   onRouteChange = (route) => {
     if (route === "signout") {
       this.setState({ isSignedIn: false });
-      console.log(initialState);
+      // console.log(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
