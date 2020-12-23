@@ -2,7 +2,7 @@ import React from "react";
 
 
 const Rank = ({ name, entries }) => {
-    console.log("name :", name)
+    // console.log("name :", name)
     return (
       <div className="container tc">
         <div className='white f3'>

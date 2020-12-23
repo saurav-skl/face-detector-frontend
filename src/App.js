@@ -58,7 +58,7 @@ class App extends Component {
   };
 
   calculateFaceLocation = (data) => {
-    console.log(data);
+    // console.log(data);
     const clarifaiFace =
       data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputimage");
@@ -81,9 +81,8 @@ class App extends Component {
   };
 
   onButtonSubmit = () => {
-    // console.log("apple");
     this.setState({ imageUrl: this.state.input });
-    console.log("image link : " + this.state.input);
+    // console.log("image link : " + this.state.input);
     fetch("https://agile-dusk-05419.herokuapp.com/imageUrl", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -92,10 +91,9 @@ class App extends Component {
       }),
     })
       .then((response) => response.json())
-      .catch((err) => console.log( "Sorry Api doesn't work now!!"))
+      .catch((err) => console.log("Sorry, Clarifai API doesn't work now!!"))
       .then((response) => {
         if (response) {
-          // console.log("mango");
           fetch("https://agile-dusk-05419.herokuapp.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
@@ -109,9 +107,11 @@ class App extends Component {
             })
             .catch((err) => console.log(err));
         }
+        else{
+          return console.log("So sorry, Api's doesn't work now!!");
+        }
         this.displayFaceBox(this.calculateFaceLocation(response));
-      })
-      
+      });
   };
 
   onRouteChange = (route) => {
