@@ -58,6 +58,7 @@ class App extends Component {
   };
 
   calculateFaceLocation = (data) => {
+    console.log(data);
     const clarifaiFace =
       data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputimage");
@@ -82,17 +83,19 @@ class App extends Component {
   onButtonSubmit = () => {
     // console.log("apple");
     this.setState({ imageUrl: this.state.input });
+    console.log("image link : " + this.state.input);
     fetch("https://agile-dusk-05419.herokuapp.com/imageUrl", {
-      method: "post",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         input: this.state.input,
       }),
     })
       .then((response) => response.json())
-      .catch((err) => console.log)
+      .catch((err) => console.log( "Sorry Api doesn't work now!!"))
       .then((response) => {
         if (response) {
+          // console.log("mango");
           fetch("https://agile-dusk-05419.herokuapp.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
@@ -108,7 +111,7 @@ class App extends Component {
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
-      .catch((err) => alert(err + "\nSorry " + this.state.user.name));
+      
   };
 
   onRouteChange = (route) => {
